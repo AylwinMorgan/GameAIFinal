@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AlignmentRule : BoidRule
 {
-    public new Vector2 ComputeForce(List<Boid> neighbors, Boid boid)
+    public override Vector2 ComputeForce(List<Boid> neighbors, Boid boid)
     {
         // Try to match the heading of neighbors = Average velocity
         Vector2 averageVelocity = Vector2.zero;

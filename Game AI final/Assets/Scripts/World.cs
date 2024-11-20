@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class World : object
+public static class World
 {
-    public static Boid[] boids;
-    public static float neighborhoodDistance = 1f;
-    public static float maxAcceleration = 10f;
+    public static List<Boid> boids = new List<Boid>();
+    public static float neighborhoodDistance = 0.2f;
+    public static float maxVelocity = 3f;
     public static int boidAmount = 30;
-    public static float fieldWidth = 10f;
-    public static float fieldHeight = 10f;
+    public static float maxX = 10f;
+    public static float maxY = 10f;
+    public static float minX = -10f;
+    public static float minY = -10f;
 
     public static bool GetBoidsAreNeighbors(Boid b1, Boid b2)
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CohesionRule : BoidRule
 {
-    public new Vector2 ComputeForce(List<Boid> neighbors, Boid boid)
+    public override Vector2 ComputeForce(List<Boid> neighbors, Boid boid)
     {
         Vector2 cohesionForce = Vector2.zero;
         Vector2 centerOfMass = Vector2.zero;

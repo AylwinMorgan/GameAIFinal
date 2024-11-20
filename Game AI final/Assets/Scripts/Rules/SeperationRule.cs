@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SeperationRule : BoidRule
 {
-    public new Vector2 ComputeForce(List<Boid> neighbors, Boid boid)
+    public override Vector2 ComputeForce(List<Boid> neighbors, Boid boid)
     {
         // Try to avoid boids too close
         Vector2 separatingForce = Vector2.zero;
