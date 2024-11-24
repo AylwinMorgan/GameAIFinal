@@ -15,6 +15,7 @@ public class Boid : MonoBehaviour
     Vector2 acceleration;
     List<BoidRule> rules;
     List<Boid> neighbors;
+    List<GameObject> adjacentWalls;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class Boid : MonoBehaviour
         rules.Add(new SeperationRule());
         rules.Add(new CohesionRule());
         rules.Add(new AlignmentRule());
+        rules.Add(new AvoidWallsRule());
         World.boids.Add(this);
     }
 
@@ -62,6 +64,7 @@ public class Boid : MonoBehaviour
 
         transform.eulerAngles = new Vector3(0,0,-Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg);
 
+        /*
         // loop boids around when they reach field borders
         if (transform.position.x > World.maxX)
         {
@@ -79,5 +82,6 @@ public class Boid : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, World.maxY, transform.position.z);
         }
+        */
     }
 }

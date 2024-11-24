@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class CameraLogic : MonoBehaviour
 {
-    float mapX = 100.0f;
-    float mapY = 100.0f;
+/*
+    float mapX = 5f;
+    float mapY = 5f;
 
     private float minX;
     private float maxX;
@@ -17,10 +18,10 @@ public class CameraLogic : MonoBehaviour
         float vertExtent = GetComponent<Camera>().orthographicSize;
         float horzExtent = vertExtent * Screen.width / Screen.height;
 
-        minX = horzExtent - mapX / 2.0f;
-        maxX = mapX / 2.0f - horzExtent;
-        minY = vertExtent - mapY / 2.0f;
-        maxY = mapY / 2.0f - vertExtent;
+        maxX = horzExtent - mapX / 2.0f;
+        minX = mapX / 2.0f - horzExtent;
+        maxY = vertExtent - mapY / 2.0f;
+        minY = mapY / 2.0f - vertExtent;
 
         World.minX = minX;
         World.maxX = maxX;
@@ -35,4 +36,5 @@ public class CameraLogic : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
         transform.position = pos;
     }
+    */
 }
