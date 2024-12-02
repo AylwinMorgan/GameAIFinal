@@ -19,13 +19,14 @@ public class Boid : MonoBehaviour
 
     void Start()
     {
-        velocity = new Vector2(Random.Range(-3f,3f),Random.Range(-3f,3f));
+        //velocity = new Vector2(Random.Range(-3f,3f),Random.Range(-3f,3f));
+        velocity = Vector2.zero;
         rules = new List<BoidRule> ();
         neighbors = new List<Boid> ();
-        rules.Add(new SeperationRule());
-        rules.Add(new CohesionRule());
-        rules.Add(new AlignmentRule());
-        rules.Add(new AvoidWallsRule());
+        //rules.Add(new SeperationRule());
+        //rules.Add(new CohesionRule());
+        //rules.Add(new AlignmentRule());
+        //rules.Add(new AvoidWallsRule());
         World.boids.Add(this);
     }
 
