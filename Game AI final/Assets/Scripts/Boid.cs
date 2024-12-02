@@ -84,4 +84,9 @@ public class Boid : MonoBehaviour
         }
         */
     }
+
+    private void LateUpdate()
+    {
+        transform.eulerAngles = new Vector3(0,0,transform.eulerAngles.z);
+    }
 }
