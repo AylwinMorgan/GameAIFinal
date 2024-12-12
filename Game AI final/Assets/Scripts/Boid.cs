@@ -53,7 +53,7 @@ public class Boid : MonoBehaviour
     {
         NavMeshHit navMeshHit;
         GetComponent<NavMeshAgent>().SamplePathPosition(NavMesh.AllAreas, 0f, out navMeshHit);
-        if (navMeshHit.mask != 1 && boidWillDieInDangerousZone)
+        if (navMeshHit.mask != 1 && navMeshHit.mask != 32 && boidWillDieInDangerousZone)
         {
             Debug.Log(navMeshHit.mask);
             gameObject.SetActive(false);
@@ -83,12 +83,14 @@ public class Boid : MonoBehaviour
             angle *= -1;
             angle += 360;
         }
-        transform.eulerAngles = new Vector3(0f, 0f, angle);
+
+        transform.eulerAngles = new Vector3(0f, 0f, 90f);
+        /*
         if (angle >= 0 && angle < 180)
         {
             if (angle <= 90)
             {
-                transform.eulerAngles = new Vector3(0f, 0f, angle - 90f);
+                transform.eulerAngles = new Vector3(0f, 0f, angle + 270f);
             }
             else
             {
@@ -102,9 +104,10 @@ public class Boid : MonoBehaviour
                 transform.eulerAngles = new Vector3(0f, 0f, angle + 90f);
             }
             else {
-                transform.eulerAngles = new Vector3(0f, 0f, angle - 90f);
+                transform.eulerAngles = new Vector3(0f, 0f, angle + 270f);
             }
         }
+        */
     }
 
     public void flipWillDie()
