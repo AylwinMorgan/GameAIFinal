@@ -6,7 +6,7 @@ using UnityEngine;
 public static class World
 {
     public static List<Boid> boids = new List<Boid>();
-    public static float neighborhoodDistance = 0.4f;
+    public static float neighborhoodDistance = 0.1f;
     public static float maxVelocity = 3f;
     public static int boidAmount = 30;
     public static float maxX = 10f;

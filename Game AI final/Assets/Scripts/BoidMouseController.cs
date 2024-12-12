@@ -22,7 +22,11 @@ public class BoidMouseController : MonoBehaviour
             {
                 foreach (Boid b in World.boids)
                 {
-                    b.GetComponent<NavMeshAgent>().SetDestination(hit.point);
+                    if (b.isActiveAndEnabled)
+                    {
+                        b.GetComponent<NavMeshAgent>().SetDestination(hit.point);
+                        b.flipWillDie();
+                    }
                 }
             }
         }

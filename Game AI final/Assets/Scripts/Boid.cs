@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -15,6 +16,7 @@ public class Boid : MonoBehaviour
     Vector2 acceleration;
     List<BoidRule> rules;
     List<Boid> neighbors;
+    bool boidWillDieInDangerousZone = false;
     List<GameObject> adjacentWalls;
 
     void Start()
@@ -28,6 +30,7 @@ public class Boid : MonoBehaviour
         //rules.Add(new AlignmentRule());
         //rules.Add(new AvoidWallsRule());
         World.boids.Add(this);
+        flipWillDie();
     }
 
     void ComputeNeighborhood()
@@ -48,6 +51,13 @@ public class Boid : MonoBehaviour
     }
     void FixedUpdate()
     {
+        NavMeshHit navMeshHit;
+        GetComponent<NavMeshAgent>().SamplePathPosition(NavMesh.AllAreas, 0f, out navMeshHit);
+        if (navMeshHit.mask != 1 && boidWillDieInDangerousZone)
+        {
+            Debug.Log(navMeshHit.mask);
+            gameObject.SetActive(false);
+        }
         ComputeNeighborhood();
         foreach (BoidRule b in rules)
         {
@@ -62,32 +72,51 @@ public class Boid : MonoBehaviour
         acceleration = Vector2.zero;
         Vector3 result = new Vector3(velocity.x*Time.deltaTime,velocity.y*Time.deltaTime,0);
         transform.position += result;
-
-        transform.eulerAngles = new Vector3(0,0,-Mathf.Atan2(velocity.x, velocity.y) * Mathf.Rad2Deg);
-
-        /*
-        // loop boids around when they reach field borders
-        if (transform.position.x > World.maxX)
-        {
-            transform.position = new Vector3(World.minX,transform.position.y,transform.position.z);
-        }
-        else if (transform.position.x < World.minX)
-        {
-            transform.position = new Vector3(World.maxX, transform.position.y, transform.position.z);
-        }
-        if (transform.position.y > World.maxY)
-        {
-            transform.position = new Vector3(transform.position.x, World.minY, transform.position.z);
-        }
-        else if (transform.position.y < World.minY)
-        {
-            transform.position = new Vector3(transform.position.x, World.maxY, transform.position.z);
-        }
-        */
     }
 
     private void LateUpdate()
     {
-        transform.eulerAngles = new Vector3(0,0,transform.eulerAngles.z);
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        float angle = Mathf.Atan(agent.velocity.y / agent.velocity.x) * Mathf.Rad2Deg;
+        if (agent.velocity.y < 0 && agent.velocity.x < 0)
+        {
+            angle *= -1;
+            angle += 360;
+        }
+        transform.eulerAngles = new Vector3(0f, 0f, angle);
+        if (angle >= 0 && angle < 180)
+        {
+            if (angle <= 90)
+            {
+                transform.eulerAngles = new Vector3(0f, 0f, angle - 90f);
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0f, 0f, angle + 90f);
+            }
+        }
+        else
+        {
+            if (angle >= 270)
+            {
+                transform.eulerAngles = new Vector3(0f, 0f, angle + 90f);
+            }
+            else {
+                transform.eulerAngles = new Vector3(0f, 0f, angle - 90f);
+            }
+        }
+    }
+
+    public void flipWillDie()
+    {
+        int rng = Random.Range(0, 99);
+        if (rng < 50)
+        {
+            boidWillDieInDangerousZone = true;
+        }
+        else
+        {
+            boidWillDieInDangerousZone = false;
+        }
     }
 }

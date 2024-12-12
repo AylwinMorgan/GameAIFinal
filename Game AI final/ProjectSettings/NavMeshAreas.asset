@@ -12,8 +12,8 @@ NavMeshProjectSettings:
   - name: Jump
     cost: 2
   - name: Dangerous
-    cost: 8
-  - name: 
+    cost: 20
+  - name: Simple Dangerous
     cost: 1
   - name: 
     cost: 1
